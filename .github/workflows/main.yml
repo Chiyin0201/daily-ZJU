@@ -1,0 +1,29 @@
+name: ClockIn
+
+on:
+  push:
+    branches: 
+      - master
+  watch:
+    types: started
+  schedule:
+    - cron: 48 19,20 * * *
+
+jobs:
+  ClockIn:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+      - name: Install python3
+        run: |
+          sudo -E apt-get -yqq update
+          sudo -E apt-get -yqq install python3
+          sudo pip install -r requirements.txt
+      - name: Clock In
+        env:
+          ACCOUNT: ${{ secrets.ACCOUNT }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+          TOKEN: ${{ secrets.TOKEN }}
+        run: |
+          python3 main.py ${ACCOUNT} ${PASSWORD} ${TOKEN}
