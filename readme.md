@@ -37,17 +37,17 @@ secret包括以下三个内容：
 - PASSWORD：密码
 - TOKEN：爱语飞飞序列号
 
-![](images/readme-1.png)
+![](https://github.com/Chen-Carl/daily-ZJU/raw/main/images/readme-1.png)
 
 成功配置后，在repository secrets下应显示
 
-![](images/readme-2.png)
+![](https://github.com/Chen-Carl/daily-ZJU/raw/main/images/readme-2.png)
 
 3. 启用action
 
 在Action界面启动预先配置的ClockIn任务。
 
-![](images/readme-3.png)
+![](https://github.com/Chen-Carl/daily-ZJU/raw/main/images/readme-3.png)
 
 #### 2.2 任务异常说明
 
