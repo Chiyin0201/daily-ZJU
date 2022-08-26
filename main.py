@@ -40,11 +40,13 @@ def main():
             logging.error(resp["m"])
             if "今天已经填报了" in str(resp["m"]):
                 iy_info("平安浙大：今日已提交", "今天已经填报了")
+                exit(0)
             else:
                 iy_info("平安浙大：提交失败", resp["m"])
-            exit(1)
+                exit(1)
     except LoginException as e:
         logging.error(e)
+        iy_info("平安浙大：登录失败", e)
         exit(1)
     except GetInfoException as e:
         logging.error(e)
