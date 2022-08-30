@@ -134,14 +134,14 @@ class HealthCheckInHelper(ZJULogin):
             raise GetInfoException("Fail to get old info: index error")
 
         new_info = old_info.copy()
-        # print(new_info)
+        print(new_info)
         # random position
         try:
             geo_api_info = json.loads(old_info["geo_api_info"])
-            Q = geo_api_info["position"]["Q"] + random.random() * 0.00001
-            R = geo_api_info["position"]["R"] + random.random() * 0.00001
-            lng = geo_api_info["position"]["lng"] + random.random() * 0.00001
-            lat = geo_api_info["position"]["lat"] + random.random() * 0.00001
+            Q = geo_api_info["position"]["Q"] + round(random.random(), 6) * 0.00001
+            R = geo_api_info["position"]["R"] + round(random.random(), 6) * 0.00001
+            lng = geo_api_info["position"]["lng"] + round(random.random(), 6) * 0.00001
+            lat = geo_api_info["position"]["lat"] + round(random.random(), 6) * 0.00001
             geo_api_info["position"]["Q"] = Q
             geo_api_info["position"]["R"] = R
             geo_api_info["position"]["lng"] = lng
