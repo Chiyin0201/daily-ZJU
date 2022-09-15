@@ -121,22 +121,24 @@ class HealthCheckInHelper(ZJULogin):
             old_info = re.findall(r'oldInfo: ({[^\n]+})', resp)
             if len(old_info) != 0:
                 old_info = json.loads(old_info[0])
+                print("-------- old info --------\n", old_info)
             else:
                 raise GetInfoException("Fail to get old info")
 
             new_info = json.loads(re.findall(r'def = ({[^\n]+})', resp)[0])
             new_id = new_info["id"]
-            name = re.findall(r'realname: "([^\"]+)",', resp)[0]
-            number = re.findall(r"number: '([^\']+)',", resp)[0]
+            # name = re.findall(r'realname: "([^\"]+)",', resp)[0]
+            # number = re.findall(r"number: '([^\']+)',", resp)[0]
         except json.decoder.JSONDecodeError:
             raise GetInfoException("Fail to get old info: json decode error")
         except IndexError:
             raise GetInfoException("Fail to get old info: index error")
 
         new_info = old_info.copy()
-        print(new_info)
+        # print(new_info)
         # random position
         try:
+            # print(old_info)
             geo_api_info = json.loads(old_info["geo_api_info"])
             Q = geo_api_info["position"]["Q"] + round(random.random(), 6) * 0.00001
             R = geo_api_info["position"]["R"] + round(random.random(), 6) * 0.00001
@@ -152,8 +154,8 @@ class HealthCheckInHelper(ZJULogin):
 
         # other information
         new_info['id'] = new_id
-        new_info['name'] = name
-        new_info['number'] = number
+        # new_info['name'] = name
+        # new_info['number'] = number
         new_info["date"] = self.get_date()
         new_info["created"] = round(time.time())
         new_info['jrdqtlqk[]'] = 0
@@ -174,7 +176,9 @@ class HealthCheckInHelper(ZJULogin):
         
     def post(self):
         """Post the hitcard info"""
+        print("\n\n", json.dumps(self.info))
         res = self.session.post(url_save, data=self.info, headers=self.headers)
+        print("\n\n-------- new info --------\n", self.info)
         return json.loads(res.text)
 
     def get_date(self):
